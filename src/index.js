@@ -925,6 +925,9 @@ class App extends React.Component{
   render(){
     return(
       <div className="container">
+        <div className="github">
+          <a href="https://github.com/xevrem/dungeoneer"><i className="fa fa-github" aria-hidden="true"></i></a>
+        </div>
         <div className="header">
           <h1>Dungeoneer: The Roguelike</h1>
           <PlayerInfo player={this.state.game.player}
