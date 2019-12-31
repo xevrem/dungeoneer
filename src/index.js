@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 //import {createStore} from 'redux'
 import registerServiceWorker from './registerServiceWorker';
-import ROT from 'rot-js';
+import * as ROT from 'rot-js';
 
 var glyphs = {
   //wall
