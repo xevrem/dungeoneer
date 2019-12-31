@@ -1,7 +1,23 @@
 {
-  "main.css": "static/css/main.80d492aa.css",
-  "main.css.map": "static/css/main.80d492aa.css.map",
-  "main.js": "static/js/main.48a844ef.js",
-  "main.js.map": "static/js/main.48a844ef.js.map",
-  "static/media/black_stone_texture.jpg": "static/media/black_stone_texture.76d16f93.jpg"
+  "files": {
+    "main.css": "/dungeoneer/static/css/main.387f9804.chunk.css",
+    "main.js": "/dungeoneer/static/js/main.c5c9b3ad.chunk.js",
+    "main.js.map": "/dungeoneer/static/js/main.c5c9b3ad.chunk.js.map",
+    "runtime-main.js": "/dungeoneer/static/js/runtime-main.c3805a19.js",
+    "runtime-main.js.map": "/dungeoneer/static/js/runtime-main.c3805a19.js.map",
+    "static/js/2.925c5c4f.chunk.js": "/dungeoneer/static/js/2.925c5c4f.chunk.js",
+    "static/js/2.925c5c4f.chunk.js.map": "/dungeoneer/static/js/2.925c5c4f.chunk.js.map",
+    "index.html": "/dungeoneer/index.html",
+    "precache-manifest.1bebffa1ec7ea34cbf14c2b0fc193cb7.js": "/dungeoneer/precache-manifest.1bebffa1ec7ea34cbf14c2b0fc193cb7.js",
+    "service-worker.js": "/dungeoneer/service-worker.js",
+    "static/css/main.387f9804.chunk.css.map": "/dungeoneer/static/css/main.387f9804.chunk.css.map",
+    "static/js/2.925c5c4f.chunk.js.LICENSE": "/dungeoneer/static/js/2.925c5c4f.chunk.js.LICENSE",
+    "static/media/index.css": "/dungeoneer/static/media/black_stone_texture.76d16f93.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c3805a19.js",
+    "static/js/2.925c5c4f.chunk.js",
+    "static/css/main.387f9804.chunk.css",
+    "static/js/main.c5c9b3ad.chunk.js"
+  ]
 }
