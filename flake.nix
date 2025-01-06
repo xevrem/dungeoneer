@@ -18,13 +18,13 @@
         };
         nodePkgs = with pkgs.nodePackages; [
           eslint
-          pnpm
           prettier
           stylelint
           typescript
           typescript-language-server
           vscode-langservers-extracted
           yaml-language-server
+          yarn
         ];
       in
         {
