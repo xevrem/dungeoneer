@@ -1,4 +1,12 @@
 //message creation helper
+/**
+ * use game to print message
+ *
+ * @param {import('Game').Game} game
+ * @param {string} text
+ * @param {string} fg_color
+ * @param {string} bg_color
+ */
 export function create_message(game, text, fg_color, bg_color) {
   var msg = {
     text: text,
@@ -21,14 +29,21 @@ export class Console {
     create_message(this.game, "Welcome to Dungeoneer: The Roguelike!");
     create_message(this.game, "Move: [W,A,S,D], Use: [U], Look: [L]");
     create_message(
+      this.game,
       "Defeat the Goblin King on floor " + this.game.final_floor + " to win.",
     );
     create_message(
+      this.game,
       "You fall through the ground and find yourself",
       "#88f",
       "#000",
     );
-    create_message(this.game, "in a dungeon. There are goblins nearby...", "#88f", "#000");
+    create_message(
+      this.game,
+      "in a dungeon. There are goblins nearby...",
+      "#88f",
+      "#000",
+    );
   }
 
   clear_buffer() {
