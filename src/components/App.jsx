@@ -1,5 +1,5 @@
 import { dynamic_stairs_down, Templates } from "Templates";
-import "./index.css";
+import "./App.css";
 import { PlayerInfo } from "./PlayerInfo";
 import { create_message } from "Console";
 
