@@ -1,7 +1,8 @@
 import * as ROT from "rot-js";
-import { Console } from "Console";
-import { dynamic_goblin, dynamic_stairs_down, Templates } from "Templates";
-import { Entity } from "Entity";
+import { Console } from "./Console";
+import { dynamic_goblin, dynamic_stairs_down, Templates } from "./Templates";
+import { Entity } from "./Entity";
+import { glyphs } from "./constants";
 
 export class Game {
   constructor() {
