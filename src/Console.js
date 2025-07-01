@@ -1,4 +1,3 @@
-//message creation helper
 /**
  * use game to print message
  *
