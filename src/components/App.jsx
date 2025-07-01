@@ -1,24 +1,20 @@
 import React from "react";
 import { dynamic_stairs_down, Templates } from "Templates";
-import "./App.css";
-import { PlayerInfo } from "./PlayerInfo";
+import { PlayerInfo } from "components/PlayerInfo";
 import { create_message } from "Console";
 import { Entity } from "Entity";
+
+import "components/App.sass";
 
 export class App extends React.Component {
   state = {};
 
   constructor(props) {
     super(props);
-    console.log({ props });
     this.state = {
       game: props.game,
     };
   }
-
-  // componentWillMount(){
-  //
-  // }
 
   componentDidMount() {
     this.state.game.init();
@@ -58,8 +54,11 @@ export class App extends React.Component {
     // new Entity(this.state.game, x,y, 'Goblin King', Templates.GoblinKing);
 
     this.state.game.engine.start();
-
     this.state.game.render();
+    // on first load, call render an extra time because fonts maaaaaay not be loaded yet
+    window.setTimeout(() => {
+      this.state.game.render();
+    }, 500);
   }
 
   handle_input(event) {
@@ -68,12 +67,18 @@ export class App extends React.Component {
     if (this.state.game.game_over) {
       //restart the game
       if (event.key === "Enter") {
-        game.player = new Entity(0, 0, "Player", Templates.Player);
-        game.create_new_floor(1);
-        game.game_over = false;
-        game.render();
-        game.Console.clear_buffer();
-        game.Console.init();
+        this.state.game.player = new Entity(
+          this.state.game,
+          0,
+          0,
+          "Player",
+          Templates.Player,
+        );
+        this.state.game.create_new_floor(1);
+        this.state.game.game_over = false;
+        this.state.game.render();
+        this.state.game.Console.clear_buffer();
+        this.state.game.Console.init();
       }
       //done allow other controls
       return;
@@ -146,9 +151,9 @@ export class App extends React.Component {
   }
 
   handle_render() {
-    this.setState({
-      game: game,
-    });
+    this.setState((prev) => ({
+      game: prev.game,
+    }));
   }
 
   render() {
