@@ -1,3 +1,5 @@
+import React from "react";
+
 export function PlayerInfo(props) {
   var lvl = props.player ? props.player.level : 0;
   var hp = props.player ? props.player.hp : 0;
