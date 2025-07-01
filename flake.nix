@@ -24,12 +24,12 @@
           typescript-language-server
           vscode-langservers-extracted
           yaml-language-server
-          yarn
         ];
       in
         {
           devShells.default = pkgs.mkShell {
             packages = with pkgs; [
+              jq
               marksman
               nodejs_20
             ] ++ nodePkgs;
