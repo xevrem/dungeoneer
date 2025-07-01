@@ -1,41 +1,49 @@
 body {
-  background: url("black_stone_texture.jpg") no-repeat center center fixed;
+  background: url("images/black_stone_texture.jpg") no-repeat center center fixed;
   background-size: cover;
-  font-family: "Ubuntu Mono", monospace; }
+  font-family: "Ubuntu Mono", monospace;
+}
 
 .inline {
   display: inline-block;
-  vertical-align: top; }
+  vertical-align: top;
+}
 
 .container {
   margin: 0px auto 0px auto;
-  text-align: center; }
+  text-align: center;
+}
 
 h1 {
   color: #858580;
-  text-shadow: 0 0 15px black; }
+  text-shadow: 0 0 15px black;
+}
 
 p {
   margin: 0 5px 15px 0;
   padding: 3px;
   color: #858580;
-  background-color: #2F2A27;
+  background-color: #2f2a27;
   border-radius: 3px;
-  box-shadow: 0 0 3px #111; }
+  box-shadow: 0 0 3px #111;
+}
 
 #displays {
   width: 760px;
   margin-left: auto;
   margin-right: auto;
-  background-color: #2F2A27;
+  background-color: #2f2a27;
   border-radius: 5px;
-  box-shadow: 0 0 15px #000; }
+  box-shadow: 0 0 15px #000;
+}
 
 #display-canvas {
-  margin: 5px 0px 5px 0px; }
+  margin: 5px 0px 5px 0px;
+}
 
 #console-canvas {
-  margin: 0px 0px 5px 0px; }
+  margin: 0px 0px 5px 0px;
+}
 
 .github a {
   color: #858580;
@@ -43,6 +51,5 @@ p {
   position: absolute;
   top: 5px;
   left: 5px;
-  text-decoration: none; }
-
-/*# sourceMappingURL=index.css.map */
+  text-decoration: none;
+}
