@@ -1,13 +1,18 @@
+import React from "react";
 import { dynamic_stairs_down, Templates } from "Templates";
 import "./App.css";
 import { PlayerInfo } from "./PlayerInfo";
 import { create_message } from "Console";
+import { Entity } from "Entity";
 
 export class App extends React.Component {
-  constructor() {
-    super();
+  state = {};
+
+  constructor(props) {
+    super(props);
+    console.log({ props });
     this.state = {
-      game: this.props.game,
+      game: props.game,
     };
   }
 
@@ -32,25 +37,25 @@ export class App extends React.Component {
     var x, y;
     for (var i = 0; i < 10; i++) {
       [x, y] = this.state.game.get_safe_location();
-      new Entity(x, y, "Goblin", Templates.Goblin);
+      new Entity(this.state.game, x, y, "Goblin", Templates.Goblin);
     }
 
     for (var i = 0; i < 3; i++) {
       [x, y] = this.state.game.get_safe_location();
-      new Entity(x, y, "Potion", Templates.HealingPotion);
+      new Entity(this.state.game, x, y, "Potion", Templates.HealingPotion);
     }
 
     [x, y] = this.state.game.get_safe_location();
-    new Entity(x, y, "Weapon", Templates.Weapon);
+    new Entity(this.state.game, x, y, "Weapon", Templates.Weapon);
 
     [x, y] = this.state.game.get_safe_location();
-    new Entity(x, y, "Armor", Templates.Armor);
+    new Entity(this.state.game, x, y, "Armor", Templates.Armor);
 
     [x, y] = this.state.game.get_safe_location();
-    new Entity(x, y, "Stairs", dynamic_stairs_down());
+    new Entity(this.state.game, x, y, "Stairs", dynamic_stairs_down());
 
     // [x,y] = this.state.game.get_safe_location();
-    // new Entity(x,y, 'Goblin King', Templates.GoblinKing);
+    // new Entity(this.state.game, x,y, 'Goblin King', Templates.GoblinKing);
 
     this.state.game.engine.start();
 
@@ -104,9 +109,14 @@ export class App extends React.Component {
       this.state.game.player.name,
     );
     if (entity) {
-      create_message(this.game, "There is a " + entity.name + " here.", "#ddd", "#000");
+      create_message(
+        this.state.game,
+        "There is a " + entity.name + " here.",
+        "#ddd",
+        "#000",
+      );
     } else {
-      create_message(this.game, "There is nothing here.", "#ddd", "#000");
+      create_message(this.state.game, "There is nothing here.", "#ddd", "#000");
     }
     this.state.game.engine.unlock();
   }

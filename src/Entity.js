@@ -1,4 +1,13 @@
 export class Entity {
+  /**
+   *
+   *
+   * @param {import('./Game').Game} game
+   * @param {number} x
+   * @param {number} y
+   * @param {string} name
+   * @param {import('./Templates').Template} template
+   */
   constructor(game, x, y, name, template) {
     this.x = x;
     this.y = y;
@@ -15,7 +24,11 @@ export class Entity {
       this.game.scheduler.add(this, true);
   }
 
-  //applies template
+  /**
+   * applies template
+   *
+   * @param {import('./Templates').Template} template
+   */
   apply_template(template) {
     for (var key in template) {
       //console.log(key, template[key]);
@@ -28,9 +41,15 @@ export class Entity {
     return template;
   }
 
-  //adds component mixins
+  /**
+   * adds component mixins
+   * @param {import('./Components').Component[]} components
+   * @param {import('./Templates').Template} template
+   */
   add_components(components, template) {
     for (var i in components) {
+      if (components[i].setGame) components[i].setGame.call(this, this.game);
+
       for (var key in components[i]) {
         //don't copy ovesr component name, init method, or overwrite anything
         if (key !== "init" && key !== "name" && !this.hasOwnProperty(key)) {

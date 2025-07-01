@@ -1,16 +1,38 @@
 import { create_message } from "Console";
 
+export class Component {
+  /** @type {import('Game').Game } */
+  game;
+  /** @type {string} */
+  name;
+
+  constructor(props) {
+    Object.assign(this, props);
+  }
+
+  /**
+   * set the game instance
+   *
+   * @param {import('./Game').Game} game 
+   */
+  setGame(game) {
+    this.game = game;
+  }
+}
+
 /*
  * COMPONENTS
  */
+/** @type {Record<string, Component>} */
 export const Components = {};
-Components.Moveable = {
+
+Components.Moveable = new Component({
   name: "Moveable",
   try_move: function (x, y) {
     //console.log('try_move...', this);
     //get this tile
-    var tile = game.get_tile(x, y);
-    var entity = game.get_entity_at(x, y);
+    var tile = this.game.get_tile(x, y);
+    var entity = this.game.get_entity_at(x, y);
     //console.log(entity,tile);
     if (entity) {
       if (
@@ -27,9 +49,9 @@ Components.Moveable = {
       this.y = y;
     }
   },
-};
+});
 
-Components.Actor = {
+Components.Actor = new Component({
   name: "Actor",
   init: function () {
     this.target = null;
@@ -38,7 +60,7 @@ Components.Actor = {
     //attack a target if possible
     if (this.target) {
       //console.log('have target',this.target);
-      if (game.is_entity_adjacent(this.x, this.y, this.target)) {
+      if (this.game.is_entity_adjacent(this.x, this.y, this.target)) {
         //console.log('is nearby...')
         this.attack(this.target);
         return;
@@ -54,8 +76,8 @@ Components.Actor = {
     var x = this.x + dx;
     var y = this.y + dy;
 
-    var tile = game.get_tile(x, y);
-    var entity = game.get_entity_at(x, y);
+    var tile = this.game.get_tile(x, y);
+    var entity = this.game.get_entity_at(x, y);
 
     if (entity) {
       if (
@@ -75,21 +97,21 @@ Components.Actor = {
       return;
     }
   },
-};
+});
 
-Components.PlayerActor = {
+Components.PlayerActor = new Component({
   name: "PlayerActor",
   init: function () {},
   act: function () {
     //issue redraw
-    game.render();
+    this.game.render();
 
     //lock the engine - will be released after player moves
-    game.engine.lock();
+    this.game.engine.lock();
   },
-};
+});
 
-Components.Attacker = {
+Components.Attacker = new Component({
   name: "Attacker",
   init: function (template) {
     this.defense_value = template.defense_value || 0;
@@ -103,18 +125,23 @@ Components.Attacker = {
       );
 
       if (dmg === 0) {
-        create_message(this.name + " misses " + target.name, "#ff8", "#000");
+        create_message(
+          this.game,
+          this.name + " misses " + target.name,
+          "#ff8",
+          "#000",
+        );
       }
 
       var msg =
         this.name + " attacks " + target.name + " for " + dmg + " damage.";
-      create_message(msg, "#f80", "#000");
+      create_message(this.game, msg, "#f80", "#000");
       target.take_damage(this, dmg);
     }
   },
-};
+});
 
-Components.Destructable = {
+Components.Destructable = new Component({
   name: "Destructable",
   init: function (template) {
     this.max_hp = template.max_hp || 10;
@@ -137,7 +164,7 @@ Components.Destructable = {
 
       if (attacker.has_component("Leveling")) {
         //award xp based on dungeon floor
-        attacker.award(game.floor);
+        attacker.award(this.game.floor);
       }
 
       if (this.has_component("WinOnDefeat")) {
@@ -149,9 +176,9 @@ Components.Destructable = {
       }
     }
   },
-};
+});
 
-Components.Usable = {
+Components.Usable = new Component({
   name: "Usable",
   init: function (template) {
     this.charges = template.charges || 1;
@@ -160,13 +187,19 @@ Components.Usable = {
   use: function (user) {
     //if healing potion
     if (this.has_component("Healing")) {
-      create_message(user.name + " uses " + this.name + ".", "#88f", "#000");
+      create_message(
+        this.game,
+        user.name + " uses " + this.name + ".",
+        "#88f",
+        "#000",
+      );
       this.heal(user);
     }
 
     //if upgrade
     if (this.has_component("Upgrading")) {
       create_message(
+        this.game,
         user.name + " picks up a " + this.name + ".",
         "#ddd",
         "#000",
@@ -176,7 +209,12 @@ Components.Usable = {
 
     //if changes floor
     if (this.has_component("ChangesFloor")) {
-      create_message(user.name + " uses " + this.name + ".", "#ddd", "#000");
+      create_message(
+        this.game,
+        user.name + " uses " + this.name + ".",
+        "#ddd",
+        "#000",
+      );
       this.change_floor(user);
     }
 
@@ -186,15 +224,16 @@ Components.Usable = {
       if (!this.eternal) this.remove_self();
     }
   },
-};
+});
 
-Components.Healing = {
+Components.Healing = new Component({
   name: "Healing",
   init: function (template) {
     this.healing_power = template.healing_power || 5;
   },
   heal: function (entity) {
     create_message(
+      this.game,
       entity.name +
         " gains " +
         this.healing_power +
@@ -207,9 +246,9 @@ Components.Healing = {
     var new_hp = entity.hp + this.healing_power;
     entity.hp = new_hp > entity.max_hp ? entity.max_hp : new_hp;
   },
-};
+});
 
-Components.Upgrading = {
+Components.Upgrading = new Component({
   name: "Upgrading",
   init: function (template) {
     this.upgrades = template.upgrades || { HP: 1 };
@@ -230,15 +269,16 @@ Components.Upgrading = {
           break;
       }
       create_message(
+        this.game,
         entity.name + " gains " + this.upgrades[upgrade] + " " + upgrade + ".",
         "#f8f",
         "#000",
       );
     }
   },
-};
+});
 
-Components.Leveling = {
+Components.Leveling = new Component({
   name: "Leveling",
   init: function (template) {
     this.level = template.level || 1;
@@ -247,47 +287,48 @@ Components.Leveling = {
   },
   award: function (xp) {
     this.xp += xp;
-    create_message(this.name + " gains experience.", "#88f", "#000");
+    create_message(this.game, this.name + " gains experience.", "#88f", "#000");
     if (this.xp >= this.next_lvl) {
       this.level += 1;
       this.attack_value += 1;
       this.max_hp += 5;
       this.hp = this.max_hp;
       this.next_lvl *= 2;
-      create_message(this.name + " levels up.", "#f8f", "#000");
+      create_message(this.game, this.name + " levels up.", "#f8f", "#000");
     }
   },
-};
+});
 
-Components.ChangesFloor = {
+Components.ChangesFloor = new Component({
   name: "ChangesFloor",
   init: function (template) {
     this.next_floor = template.next_floor || 2;
   },
   change_floor: function (entity) {
     create_message(
+      this.game,
       entity.name + " decends deeper into the dungeon.",
       "#ddd",
       "#000",
     );
-    game.create_new_floor(game.floor + 1);
+    this.game.create_new_floor(this.game.floor + 1);
   },
-};
+});
 
-Components.WinOnDefeat = {
+Components.WinOnDefeat = new Component({
   name: "WinOnDefeat",
   win_game: function () {
-    create_message("You Have Won!", "gold", "#000");
-    game.Console.render();
-    game.win_game();
+    create_message(this.game, "You Have Won!", "gold", "#000");
+    this.game.Console.render();
+    this.game.win_game();
   },
-};
+});
 
-Components.LoseOnDefeat = {
+Components.LoseOnDefeat = new Component({
   name: "LoseOnDefeat",
   lose_game: function (entity) {
-    create_message("You Have Lost!", "red", "#000");
-    game.Console.render();
-    game.lose_game(entity.name);
+    create_message(this.game, "You Have Lost!", "red", "#000");
+    this.game.Console.render();
+    this.game.lose_game(entity.name);
   },
-};
+});

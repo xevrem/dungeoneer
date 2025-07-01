@@ -1,7 +1,20 @@
 import { Components } from "Components";
 
+
+/**
+ * @typedef Template
+ * @type {{
+   glyph: string,
+   components: import('./Components').Component[],
+   [key: string]: any,
+ * }}
+ */
+
 /*
  * STATIC TEMPLATES
+ */
+/**
+ * @type Record<string, Template>
  */
 export const Templates = {};
 

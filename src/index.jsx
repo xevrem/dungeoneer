@@ -1,14 +1,16 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 
 import { App } from "components/App";
-import registerServiceWorker from "./registerServiceWorker";
 import { Game } from "Game";
+import registerServiceWorker from "./registerServiceWorker";
 
 /*
  * GAME CLASS
  */
-var game = new Game();
+const MOUNT_NODE = document.getElementById("app");
+const root = createRoot(MOUNT_NODE);
+const game = new Game();
+root.render(<App game={game} />);
 
-ReactDOM.render(<App game={game} />, document.getElementById("app"));
-registerServiceWorker();
+// registerServiceWorker();
