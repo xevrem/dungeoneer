@@ -1,5 +1,5 @@
 import * as esbuild from "esbuild";
-import { inlineSass } from "esbuild-inline-sass";
+import { sassPlugin } from "esbuild-sass-plugin";
 
 let ctx = await esbuild.context({
   bundle: true,
@@ -10,7 +10,7 @@ let ctx = await esbuild.context({
   logLevel: "debug",
   minify: false,
   outdir: "./build",
-  plugins: [inlineSass()],
+  plugins: [sassPlugin()],
   sourcemap: true,
   // set to latest LTS builds
   target: ["chrome127", "firefox128"],

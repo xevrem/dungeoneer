@@ -1,5 +1,5 @@
 import * as esbuild from "esbuild";
-import { inlineSass } from "esbuild-inline-sass";
+import { sassPlugin } from "esbuild-sass-plugin";
 
 console.log("esbuild - building...");
 
@@ -12,7 +12,7 @@ await esbuild.build({
   logLevel: "silent",
   minify: true,
   outdir: "./public",
-  plugins: [inlineSass()],
+  plugins: [sassPlugin()],
   sourcemap: false,
   // set to latest LTS builds
   target: ["chrome127", "firefox128"],
