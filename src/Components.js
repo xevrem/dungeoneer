@@ -156,6 +156,7 @@ Components.Destructable = new Component({
     if (this.hp <= 0) {
       //console.log(attacker.name,'killed',this.name);
       create_message(
+        this.game,
         attacker.name + " kills " + this.name + ".",
         "#f55",
         "#000",
